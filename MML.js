@@ -1,7 +1,8 @@
 import { WaveFile } from "https://code4fukui.github.io/wavefile-es/index.js";
 import { bincat } from "https://js.sabae.cc/binutil.js";
 
-const encode = (mml, maxs = 3 * 60, samp = 48000) => {
+const encode = (mml, maxs = 3 * 60, samp = 48000, vol = .05) => {
+	const nvol = Math.floor(255 * vol);
 	const maxms = maxs * 1000;
 	const waves = [];
 	const addWave = (freq, ms) => {
@@ -11,7 +12,7 @@ const encode = (mml, maxs = 3 * 60, samp = 48000) => {
 		let value = 1;
 		const wt = samp / freq;
 		for (let i = 0; i < wave.length; i++) {
-			wave[i] = value * 50;
+			wave[i] = value * nvol;
 			if (t++ > wt) {
 				value = 1 - value;
 				t = 0;
