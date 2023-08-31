@@ -1,0 +1,75 @@
+<!DOCTYPE html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width"><link rel="icon" href="data:">
+<title>WebMML Player</title>
+</head><body>
+
+<h1>WebMML Player</h1>
+PLAY"<textarea id=ta_mml></textarea>"<br>
+<button id=btn_play>PLAY</button>
+<button id=btn_stop>STOP</button>
+<br>
+
+<script type="module">
+import { MML } from "./MML.js";
+import { encodeData } from "https://code4fukui.github.io/dataencoder/encodeData.js";
+
+let mml = "CDE2CDE2GEDCDED2";
+if (document.location.hash.length > 1) {
+	mml = decodeURIComponent(document.location.hash.substring(1));
+}
+ta_mml.value = mml;
+
+let audio = null;
+btn_play.onclick = () => {
+	btn_stop.onclick();
+	const wav = MML.encode(ta_mml.value);
+	document.location.hash = "#" + encodeURIComponent(ta_mml.value);
+	audio = new Audio();
+	const src = encodeData("audio/wav", wav);
+	audio.src = src;
+	//audio.loop = chk_loop.checked;
+	audio.play();
+};
+btn_stop.onclick = () => {
+	if (audio) {
+		audio.pause();
+		audio = null;
+	}
+};
+</script>
+
+<style>
+body {
+	text-align: center;
+}
+a {
+	color: black !important;
+}
+textarea {
+	border: 1px solid gray;
+	color: white;
+	background: black;
+	font-size: 130%;
+	padding: 8px 16px;
+	margin: 4px;
+	width: 70%;
+	height: 10em;
+}
+button {
+	border: 1px solid gray;
+	color: white;
+	background: black;
+	font-size: 130%;
+	border-radius: 8px;
+	padding: 8px 16px;
+	margin: 4px;
+}
+#credit {
+	margin-top: 30px;
+}
+</style>
+
+<hr>
+<a href=https://github.com/ichigojam/MML>src on GitHub</a>
+
+</body>
+</html>
