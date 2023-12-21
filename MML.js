@@ -18,7 +18,6 @@ const encode = (mml, maxs = 3 * 60, samp = 48000, vol = .05) => {
         t = 0;
       }
     }
-		console.log(wave);
     waves.push(wave);
   };
   let summs = 0;
