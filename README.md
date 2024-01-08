@@ -1,6 +1,6 @@
-# MML
- 
-MML is library of the music macro language on IchigoJam.
+# MML.js
+
+MML.js is a library of the music macro language on IchigoJam.
 
 ## demo
 
